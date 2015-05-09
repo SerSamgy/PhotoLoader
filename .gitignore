@@ -60,4 +60,4 @@ target/
 
 # Database
 *.sqlite3
-PhotoLoader/loader/migrations
+PhotoLoader/loader/migrations/
