@@ -53,7 +53,8 @@ def upload_file(request):
     if request.method == 'POST':
         form = PhotoLoader(request.POST, request.FILES)
         if form.is_valid():
-            img_file = request.FILES['image_field']
+            # img_file = request.FILES['image_field']
+            img_file = form.cleaned_data['image_field']
             exif_dict = _get_exif_dict(img_file)
             thumbnail = _create_thumbnail(img_file)
             newphoto = Photo(

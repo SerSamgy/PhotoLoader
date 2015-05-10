@@ -9,15 +9,15 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>
-            {{ form.name_field.errors }}
             {{ form.name_field.label_tag }}
             {{ form.name_field }}
+            {{ form.name_field.errors }}
         </div>
         <br>
         <div>
-            {{ form.image_field.errors }}
             {{ form.image_field.label_tag }}
             {{ form.image_field }}
+            {{ form.image_field.errors }}
         </div>
         <br>
         <input type="submit" value="Submit">
