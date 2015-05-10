@@ -38,7 +38,7 @@
                         </td>
                         <td>{{ photo.name }}</td>
                         <td>{{ photo.model_name }}</td>
-                        <td>{{ photo.image.size }}</td>
+                        <td>{{ photo.image.size|filesizeformat }}</td>
                         <td>{{ photo.create_date }}</td>
                         <td>{{ photo.upload_date }}</td>
                         <td><button><a href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></button></td>
