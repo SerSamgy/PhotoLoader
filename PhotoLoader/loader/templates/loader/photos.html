@@ -2,11 +2,21 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        a {
+            color: currentColor;
+            text-decoration: blink;
+            cursor: default;
+        }
+    </style>
     <title>Table of all uploaded photos</title>
 </head>
 <body>
     {% if photos %}
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Thumbnail</th>
@@ -31,7 +41,7 @@
                         <td>{{ photo.image.size }}</td>
                         <td>{{ photo.create_date }}</td>
                         <td>{{ photo.upload_date }}</td>
-                        <td></td>
+                        <td><button><a href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></button></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -39,5 +49,7 @@
     {% else %}
         <p>There are no uploaded photos!</p>
     {% endif %}
+    <br>
+    <button><a href="{% url 'root' %}">Back to upload files</a></button>
 </body>
 </html>

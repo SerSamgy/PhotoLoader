@@ -1,9 +1,11 @@
 from datetime import datetime
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_http_methods, require_GET
+from django.views.generic import DeleteView
 from PIL import Image
 from PIL.ExifTags import TAGS
 
@@ -46,6 +48,7 @@ def _create_thumbnail(image):
         return newFile
 
 
+@require_http_methods(['GET', 'POST'])
 def upload_file(request):
     if request.method == 'POST':
         form = PhotoLoader(request.POST, request.FILES)
@@ -70,3 +73,11 @@ def upload_file(request):
 def table(request):
     photos = Photo.objects.all()
     return render(request, "loader/photos.html", {'photos': photos})
+
+class DeletePhoto(DeleteView):
+    """
+    Generic class for delete link.
+    """
+    model = Photo
+    success_url = reverse_lazy('table')
+    template_name = 'loader/delete_photo.html'

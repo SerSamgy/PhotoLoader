@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'PhotoLoader.loader'
+    'PhotoLoader.loader',
+    'django_cleanup',
 )
 
 MIDDLEWARE_CLASSES = (
