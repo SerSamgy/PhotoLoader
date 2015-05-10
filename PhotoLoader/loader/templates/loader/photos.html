@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-        a {
-            color: currentColor;
-            text-decoration: blink;
-            cursor: default;
-        }
-    </style>
-    <title>Table of all uploaded photos</title>
-</head>
-<body>
+{% extends "loader/base.html" %}
+
+{% block title %}Table of all uploaded photos{% endblock %}
+
+{% block content %}
     {% if photos %}
         <table>
             <thead>
@@ -51,5 +39,4 @@
     {% endif %}
     <br>
     <button><a href="{% url 'root' %}">Back to upload files</a></button>
-</body>
-</html>
+{% endblock %}

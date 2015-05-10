@@ -1,0 +1,9 @@
+table, th, td {
+    border: 1px solid black;
+}
+
+a {
+    color: currentColor;
+    text-decoration: blink;
+    cursor: default;
+}
