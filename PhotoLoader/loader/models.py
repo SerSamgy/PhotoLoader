@@ -6,3 +6,4 @@ class Photo(models.Model):
     model_name = models.CharField(max_length=256, default="Camera Model Name")
     create_date = models.DateTimeField()
     upload_date = models.DateTimeField(auto_now_add=True)
+    thumbnail = models.ImageField(upload_to='photos/')
