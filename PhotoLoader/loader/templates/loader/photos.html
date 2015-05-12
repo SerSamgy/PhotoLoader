@@ -29,7 +29,7 @@
                         <td>{{ photo.image.size|filesizeformat }}</td>
                         <td>{{ photo.create_date }}</td>
                         <td>{{ photo.upload_date }}</td>
-                        <td><button><a href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></button></td>
+                        <td><a class="button" href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -38,5 +38,5 @@
         <p>There are no uploaded photos!</p>
     {% endif %}
     <br>
-    <button><a href="{% url 'root' %}">Back to upload files</a></button>
+    <a class="button" href="{% url 'root' %}">Back to upload files</a>
 {% endblock %}

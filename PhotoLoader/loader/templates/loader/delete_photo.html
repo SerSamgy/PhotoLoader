@@ -7,6 +7,6 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit">Yes</button>
-        <button><a href="{% url 'table' %}">No</a></button>
+        <a class="button" href="{% url 'table' %}">No</a>
     </form>
 {% endblock %}
