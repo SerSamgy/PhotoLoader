@@ -15,3 +15,7 @@ a.button {
   border-left: 1px outset #333333;
   -webkit-appearance: push-button;
 }
+
+.errorlist {
+    color: red;
+}

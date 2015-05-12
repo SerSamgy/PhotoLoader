@@ -1,7 +1,9 @@
 from datetime import datetime
 from io import BytesIO
+import os
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse_lazy
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET
@@ -50,6 +52,7 @@ def _create_thumbnail(image):
 
 @require_http_methods(['GET', 'POST'])
 def upload_file(request):
+    args = {}
     if request.method == 'POST':
         form = PhotoLoader(request.POST, request.FILES)
         if form.is_valid():
@@ -64,11 +67,20 @@ def upload_file(request):
                 create_date = datetime.strptime(exif_dict["DateTimeOriginal"], "%Y:%m:%d %H:%M:%S"),
                 thumbnail = thumbnail,
             )
-            newphoto.save()
-            return HttpResponseRedirect('/table/')
+            try:
+                newphoto.save()
+                return HttpResponseRedirect('/table/')
+            except IntegrityError:
+                # delete currently uploaded files from MEDIA_ROOT
+                for path in (newphoto.image.path, newphoto.thumbnail.path):
+                    os.remove(path)
+                form.add_error(None, "Current image is already uploaded!")
+
     else:
         form = PhotoLoader()
-    return render(request, "loader/index.html", {'form': form})
+
+    args['form'] = form
+    return render(request, "loader/index.html", args)
 
 @require_GET
 def table(request):
