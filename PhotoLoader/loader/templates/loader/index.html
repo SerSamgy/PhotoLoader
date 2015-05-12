@@ -3,23 +3,24 @@
 {% block title %}Photos Loader Page{% endblock %}
 
 {% block content %}
-    <form action="/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
-            {{ form.name_field.label_tag }}
-            {{ form.name_field }}
-            {{ form.name_field.errors }}
-        </div>
-        <br>
-        <div>
-            {{ form.image_field.label_tag }}
-            {{ form.image_field }}
-            {{ form.image_field.errors }}
-        </div>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <br>
-    <a class="button" href="{% url 'table' %}">List of uploaded photos</a>
+    <div class="container">
+        <h2>Upload Photo</h2>
+        <form action="/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                {{ form.name_field.label_tag }}
+                <input class="form-control" id="{{ form.name_field.id_for_label }}" maxlength="256"
+                       name="{{ form.name_field.name }}" type="text">
+                {{ form.name_field.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.image_field.label_tag }}
+                <input class="form-control" id="{{ form.image_field.id_for_label }}" name="{{ form.image_field.name }}" type="file">
+                {{ form.image_field.errors }}
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <a class="btn btn-default" href="{% url 'table' %}">List of uploaded photos</a>
+        </form>
+    </div>
 {% endblock %}

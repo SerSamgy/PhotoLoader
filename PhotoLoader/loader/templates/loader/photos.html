@@ -3,8 +3,9 @@
 {% block title %}Table of all uploaded photos{% endblock %}
 
 {% block content %}
+    <div class="container">
     {% if photos %}
-        <table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Thumbnail</th>
@@ -29,7 +30,7 @@
                         <td>{{ photo.image.size|filesizeformat }}</td>
                         <td>{{ photo.create_date }}</td>
                         <td>{{ photo.upload_date }}</td>
-                        <td><a class="button" href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></td>
+                        <td><a class="btn btn-default" href="{% url 'delete_photo' pk=photo.pk %}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -37,6 +38,6 @@
     {% else %}
         <p>There are no uploaded photos!</p>
     {% endif %}
-    <br>
-    <a class="button" href="{% url 'root' %}">Back to upload files</a>
+    <a class="btn btn-default" href="{% url 'root' %}">Back to upload files</a>
+    </div>
 {% endblock %}

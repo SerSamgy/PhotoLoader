@@ -1,21 +1,3 @@
-table, th, td {
-    border: 1px solid black;
-}
-
-a.button {
-  font: 14px Arial;
-  cursor: default;
-  text-decoration: none;
-  background-color: buttonface;
-  color: buttontext;
-  padding: 2px 6px 3px 6px;
-  border-top: 1px outset #333333;
-  border-right: 1px outset buttonface;
-  border-bottom: 1px outset buttonface;
-  border-left: 1px outset #333333;
-  -webkit-appearance: push-button;
-}
-
 .errorlist {
     color: red;
 }
