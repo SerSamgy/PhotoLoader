@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -82,6 +83,14 @@ DATABASES = {
         'NAME': os.path.join(PROJECT_ROOT, 'database/db.sqlite3'),
     }
 }
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(PROJECT_ROOT, 'database/test_db.sqlite3'),
+        }
+    }
 
 
 # Internationalization
