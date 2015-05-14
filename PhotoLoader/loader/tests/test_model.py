@@ -1,17 +1,24 @@
 from io import BytesIO
-from PIL import Image
+import os
+
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.db import transaction
 from django.db.utils import IntegrityError
 from django.test import TestCase
+from PIL import Image
+
 from .factory import PhotoFactory
 
 class ModelTest(TestCase):
     def setUp(self):
         self.photo = PhotoFactory()
+        self.up_photo = None
 
     def tearDown(self):
+        # delete created files from media/photos folder
         self.photo.delete()
+        self.up_photo.delete()
 
     def test_save(self):
         self.assertTrue(self.photo.md5sum)
@@ -24,10 +31,13 @@ class ModelTest(TestCase):
         with transaction.atomic():
             self.assertRaisesMessage(IntegrityError, "UNIQUE constraint failed: loader_photo.md5sum",
                                      PhotoFactory, image = ContentFile(thumb_io.getvalue(), "test.jpg"),
-                                     name = "Uploaded Photo 1")
+                                     name = "Uploaded Photo 1", thumbnail = None  # we won't generate thumbnail image
+                                     )
+        path = default_storage.path(name="photos/test.jpg")
+        default_storage.delete(path)  # remove photo created in 'media' folder
 
         # no problems with the new different image
-        up_photo = PhotoFactory(name = "Uploaded Photo 1")  # new blue image
-        self.assertNotEqual(up_photo.md5sum, self.photo.md5sum)
+        self.up_photo = PhotoFactory(name = "Uploaded Photo 1")  # new blue image
+        self.assertNotEqual(self.up_photo.md5sum, self.photo.md5sum)
 
 
