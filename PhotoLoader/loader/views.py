@@ -43,12 +43,18 @@ def _create_thumbnail(image):
     :return: InMemoryUploadedFile
     """
     with Image.open(image) as img:
-        thumb = img.copy()  # copy file to prevent original image modification with the thumbnail function
+        thumb = img.copy()  # copy file to prevent original image modification
+                            # with the thumbnail function
         thumb.thumbnail((128, 128), Image.NEAREST)
         thumbnailBytes = BytesIO()
         thumb.save(thumbnailBytes, 'JPEG')
-        newFile = InMemoryUploadedFile(thumbnailBytes, None, 'thumb_%s.jpg' % image.name[:image.name.find(".")],
-                                       'image/jpeg', len(thumbnailBytes.getvalue()), None)
+        newFile = InMemoryUploadedFile(thumbnailBytes,
+                                       None,
+                                       'thumb_%s.jpg' %
+                                            image.name[:image.name.find(".")],
+                                       'image/jpeg',
+                                       len(thumbnailBytes.getvalue()),
+                                       None)
         return newFile
 
 
@@ -66,7 +72,8 @@ def upload_file(request):
                 image = img_file,
                 name = form.cleaned_data['name_field'],
                 model_name = "%s %s" % (exif_dict['Make'], exif_dict['Model']),
-                create_date = datetime.strptime(exif_dict["DateTimeOriginal"], "%Y:%m:%d %H:%M:%S"),
+                create_date = datetime.strptime(exif_dict["DateTimeOriginal"],
+                                                "%Y:%m:%d %H:%M:%S"),
                 thumbnail = thumbnail,
             )
             try:

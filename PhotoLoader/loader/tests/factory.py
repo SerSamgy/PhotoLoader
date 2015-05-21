@@ -26,8 +26,10 @@ class PhotoFactory(factory.DjangoModelFactory):
 
     name = "Default Photo Name"
     model_name = "Canon EOS 5D"
-    create_date = factory.fuzzy.FuzzyNaiveDateTime(datetime(2014, 5, 20, 19, 40, 30))
-    upload_date = factory.fuzzy.FuzzyNaiveDateTime(datetime(2015, 4, 10, 10, 15, 38))
+    create_date = factory.fuzzy.FuzzyNaiveDateTime(datetime(2014, 5, 20,
+                                                            19, 40, 30))
+    upload_date = factory.fuzzy.FuzzyNaiveDateTime(datetime(2015, 4, 10,
+                                                            10, 15, 38))
 
     @factory.lazy_attribute_sequence
     def thumbnail(self, n):
