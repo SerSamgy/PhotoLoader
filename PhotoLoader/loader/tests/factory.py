@@ -2,11 +2,12 @@ from datetime import datetime
 from itertools import cycle
 
 from django.core.files.base import ContentFile
+
 import factory
 import factory.django
 import factory.fuzzy
 
-from PhotoLoader.loader.models import Photo
+from ..models import Photo
 
 _colors = cycle(('red', 'blue', 'yellow', 'green', 'black'))
 

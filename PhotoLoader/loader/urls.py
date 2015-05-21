@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from PhotoLoader.loader import views
+from . import views
 
 urlpatterns = patterns('',
     url(r'^$', views.upload_file, name="root"),

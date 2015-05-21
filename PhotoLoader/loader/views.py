@@ -1,6 +1,7 @@
 from datetime import datetime
 from io import BytesIO
 import os
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
@@ -8,11 +9,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET
 from django.views.generic import DeleteView
+
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-from PhotoLoader.loader.forms import PhotoLoader
-from PhotoLoader.loader.models import Photo
+from .forms import PhotoLoader
+from .models import Photo
 
 
 def _get_exif_dict(file):
