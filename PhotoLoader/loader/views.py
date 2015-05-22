@@ -4,7 +4,7 @@ import os
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.urlresolvers import reverse_lazy
-from django.db import IntegrityError
+from django.db import DatabaseError, IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods, require_GET
@@ -79,11 +79,12 @@ def upload_file(request):
             try:
                 newphoto.save()
                 return HttpResponseRedirect('/table/')
-            except IntegrityError:
+            except DatabaseError as db_err:
                 # delete currently uploaded files from MEDIA_ROOT
                 for path in (newphoto.image.path, newphoto.thumbnail.path):
                     os.remove(path)
-                form.add_error(None, "Current image is already uploaded!")
+                if isinstance(db_err, IntegrityError):
+                    form.add_error(None, "Current image is already uploaded!")
 
     else:
         form = PhotoLoader()
