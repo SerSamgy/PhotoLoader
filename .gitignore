@@ -61,3 +61,6 @@ target/
 # Database
 *.sqlite3
 PhotoLoader/media/photos
+
+# Secrets file
+secrets.json
